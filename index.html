@@ -1,9 +1,41 @@
 <html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="./style/bootstrap.min.css">
+
+    </head>
     <body>
         <div id="pentacorn-params">
-            Size: <input type="number" id="size"><br />
+            <form>
+                <div class="form-group">
+                    <label for="size">Size</label>
+                    <input type="number" class="form-control form-control-sm" id="size" value="30">
+                </div>
+                <div class="form-group">
+                    <label for="translateX">Translate x</label>
+                    <input type="number" class="form-control form-control-sm" id="translateX" value="10">
+                </div>
+                <div class="form-group">
+                    <label for="translateY">Translate y</label>
+                    <input type="number" class="form-control form-control-sm" id="translateY" value="10">
+                </div>
+                <div class="form-group">
+                    <label for="translateRotation">Translate rotation</label>
+                    <input type="range" min="0" max="360" class="form-control form-control-sm" id="translateY" value="10">
+                </div>
+            </form>
         </div>
+
+        <!-- This is where the magic happens -->
         <div id="pentacorn-in-space"></div>
+
+        <script src="./scripts/jquery-3.3.1.slim.min.js"></script>
+        <script src="./scripts/popper.min.js"></script>
+        <script src="./scripts/bootstrap.min.js"></script>
 
         <script src="./scripts/two.min.js"></script>
         <script src="./scripts/life.js"></script>

@@ -1,5 +1,5 @@
 var space = document.getElementById('pentacorn-in-space');
-var spaceParams = { fullscreen: true };
+var spaceParams = { fullscreen: false };
 var drawTwo = new Two(spaceParams).appendTo(space);
 
 class Sequencer { 
@@ -23,7 +23,6 @@ class Sequencer {
 
     start() { 
         this.run();
-        this.draw();
     }
 
     run() { 
@@ -68,14 +67,26 @@ class Sequencer {
 // Get params from the UI
 function getParams() {
     return {
-        size: 30,
-        translateX: 30,
-        translateY: 10,
+        size: parseInt($('#size').val(), 10),
+        translateX: parseInt($('#translateX').val(), 10),
+        translateY: parseInt($('#translateY').val(), 10),
         number: 3,
         translateSize: 1.09,
-        translateRotation: Math.PI / 12,
+        translateRotation: Math.PI * parseInt($('#translateRotation').val(), 10) / 180,
     };
 }
 
-seq = new Sequencer(drawTwo, getParams());
-seq.start();
+redraw = () => {
+    drawTwo.clear();
+    let seq = new Sequencer(drawTwo, getParams());
+    seq.start();
+}
+
+// Set change events
+
+$(function () {
+    redraw();
+    $('#size,#translateX,#translateY,#translateRotation').change(redraw);
+    // $('#size').change(redraw);
+    // $('#size').change(redraw);
+});
