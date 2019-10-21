@@ -19,71 +19,63 @@ class Sequencer {
 
         // Save two drawing library
         this.two = two;
+    }
 
+    start() { 
         this.run();
         this.draw();
     }
 
     run() { 
-        state = {};
+        let state = null;
 
-        for (i = 0; i < this.params.number; i++) {
+        for (let i = 0; i < this.params.number; i++) {
             state = this.stateTransition(state)
-            this.draw();
+            this.draw(state);
         }
+        this.two.update();
     }
 
     stateTransition(state) {
-        if (state = null) {
+        if (state == null) {
             state = {
                 x: this.middleX,
                 y: this.middleY,
                 size: this.params.size,
+                rotation: 0,
             }
         } else {
             state = {
                 x: state.x + this.params.translateX,
                 y: state.y + this.params.translateY,
                 size: state.size * this.params.translateSize,
+                rotation: state.rotation + this.params.translateRotation,
             }
         }
 
         return state;
     }
 
-    draw() {
-        this.two.makeCircle(this.middleX, this.middleY, this.params.size);
-        this.two.update();
+    draw(state) {
+        let poly = this.two.makePolygon(state.x, state.y, state.size, 4);
+        poly.fill = 'rgba(255, 255, 255, 0.4)';
+        poly.stroke = 'rgba(123, 21, 31, 0.6)';
+        poly.linewidth = 3;
+        poly.rotation = state.rotation;
     }   
 }
 
-// Get params
+// Get params from the UI
 function getParams() {
     return {
-        size: 100
+        size: 30,
+        translateX: 30,
+        translateY: 10,
+        number: 3,
+        translateSize: 1.09,
+        translateRotation: Math.PI / 12,
     };
 }
 
 seq = new Sequencer(drawTwo, getParams());
-
-
-
-// // two has convenience methods to create shapes.
-// var circle = drawTwo.makeCircle(720, 100, 50);
-// var rect = drawTwo.makeRectangle(213, 100, 100, 100);
-
-// // The object returned has many stylable properties:
-
-// // Don't forget to tell two to render everything
-// // to the screen
-// drawTwo.update();
-
-// circle.fill = '#FF8000';
-// circle.stroke = 'orangered'; // Accepts all valid css color
-// circle.linewidth = 5;
-
-// rect.fill = 'rgb(0, 200, 255)';
-// rect.opacity = 0.75;
-// rect.noStroke();
-
-// drawTwo.update();
+seq.start();
