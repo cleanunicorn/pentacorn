@@ -42,6 +42,8 @@ class Sequencer {
                 y: this.middleY,
                 size: this.params.size,
                 rotation: 0,
+                colorStroke: this.params.colorStroke,
+                colorFill: this.params.colorFill,
             }
         } else {
             state = {
@@ -49,6 +51,8 @@ class Sequencer {
                 y: state.y + this.params.translateY,
                 size: state.size * this.params.translateSize,
                 rotation: state.rotation + this.params.translateRotation,
+                colorStroke: state.colorStroke,
+                colorFill: state.colorFill,
             }
         }
 
@@ -57,8 +61,8 @@ class Sequencer {
 
     draw(state) {
         let poly = this.two.makePolygon(state.x, state.y, state.size, 4);
-        poly.fill = 'rgba(255, 255, 255, 0.4)';
-        poly.stroke = 'rgba(123, 21, 31, 0.6)';
+        poly.fill = state.colorFill;
+        poly.stroke = state.colorStroke;
         poly.linewidth = 3;
         poly.rotation = state.rotation;
     }   
@@ -73,17 +77,39 @@ function getParams() {
         number: parseInt($('#number').val(), 10),
         translateSize: $('#translateSize').val(),
         translateRotation: Math.PI * parseInt($('#translateRotation').val(), 10) / 180,
+        colorFill: colorFillRGBA,
+        colorStroke: colorStrokeRGBA,
     };
 }
 
 redraw = () => {
+    console.log('.');
     drawTwo.clear();
     let seq = new Sequencer(drawTwo, getParams());
     seq.start();
 }
 
-// Set change events
+// Setup color picker
+iro.use(iroTransparencyPlugin);
+let colorFill = new iro.ColorPicker('#colorFill', {
+    width: 120,
+    transparency: true,
+})
+let colorStroke = new iro.ColorPicker('#colorStroke', {
+    width: 120,
+    transparency: true, 
+})
+let colorFillRGBA, colorStrokeRGBA
+let pickColor = () => {
+    colorFillRGBA = colorFill.color.rgbaString
+    colorStrokeRGBA = colorStroke.color.rgbaString
+}
+pickColor()
+
+// Setup change events
 $(function () {
     redraw();
-    $('#size,#translateSize,#translateX,#translateY,#translateRotation,#number').change(redraw);
+    $('#size,#translateSize,#translateX,#translateY,#translateRotation,#number').on('input', redraw);
+    colorFill.on('color:change', () => { pickColor(); redraw(); });
+    colorStroke.on('color:change', () => { pickColor(); redraw(); });
 });
