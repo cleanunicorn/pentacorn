@@ -9,29 +9,46 @@
 
     </head>
     <body>
-        <div id="pentacorn-params">
-            <form>
-                <div class="form-group">
-                    <label for="size">Size</label>
-                    <input type="number" class="form-control form-control-sm" id="size" value="30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div id="pentacorn-params">
+                        <form>
+                            <div class="form-group">
+                                <label for="number">Number</label>
+                                <input type="number" class="form-control form-control-sm" id="number" value="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="size">Size</label>
+                                <input type="number" class="form-control form-control-sm" id="size" value="30">
+                            </div>
+                            <div class="form-group">
+                                <label for="translateSize">Translate size</label>
+                                <input type="number" class="form-control form-control-sm" id="translateSize" value="1.1" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="translateX">Translate x</label>
+                                <input type="number" class="form-control form-control-sm" id="translateX" value="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="translateY">Translate y</label>
+                                <input type="number" class="form-control form-control-sm" id="translateY" value="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="translateRotation">Translate rotation</label>
+                                <input type="range" min="0" max="180" class="form-control form-control-sm" id="translateRotation" value="30">
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="translateX">Translate x</label>
-                    <input type="number" class="form-control form-control-sm" id="translateX" value="10">
+                <div class="col-sm-10">
+                    <div id="pentacorn-in-space"></div>
                 </div>
-                <div class="form-group">
-                    <label for="translateY">Translate y</label>
-                    <input type="number" class="form-control form-control-sm" id="translateY" value="10">
-                </div>
-                <div class="form-group">
-                    <label for="translateRotation">Translate rotation</label>
-                    <input type="range" min="0" max="360" class="form-control form-control-sm" id="translateY" value="10">
-                </div>
-            </form>
+            </div>
+
         </div>
 
         <!-- This is where the magic happens -->
-        <div id="pentacorn-in-space"></div>
 
         <script src="./scripts/jquery-3.3.1.slim.min.js"></script>
         <script src="./scripts/popper.min.js"></script>

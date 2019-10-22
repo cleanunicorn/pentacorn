@@ -70,8 +70,8 @@ function getParams() {
         size: parseInt($('#size').val(), 10),
         translateX: parseInt($('#translateX').val(), 10),
         translateY: parseInt($('#translateY').val(), 10),
-        number: 3,
-        translateSize: 1.09,
+        number: parseInt($('#number').val(), 10),
+        translateSize: $('#translateSize').val(),
         translateRotation: Math.PI * parseInt($('#translateRotation').val(), 10) / 180,
     };
 }
@@ -83,10 +83,7 @@ redraw = () => {
 }
 
 // Set change events
-
 $(function () {
     redraw();
-    $('#size,#translateX,#translateY,#translateRotation').change(redraw);
-    // $('#size').change(redraw);
-    // $('#size').change(redraw);
+    $('#size,#translateSize,#translateX,#translateY,#translateRotation,#number').change(redraw);
 });
